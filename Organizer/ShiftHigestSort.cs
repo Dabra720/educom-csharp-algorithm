@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace Organizer
 {
-	public class ShiftHighestSort
+    public class ShiftHighestSort
     {
         private List<int> array = new List<int>();
+        private int count = 0;
 
         /// <summary>
         /// Sort an array using the functions below
@@ -27,7 +28,21 @@ namespace Organizer
         /// <param name="high">De index within this.array to stop with</param>
         private void SortFunction(int low, int high)
         {
-            throw new NotImplementedException();
-        }    
+            for (int i = low; i < high; i++)
+            {
+                int x = array[i];
+                int y = array[i + 1];
+                if (x > y)
+                {
+                    array[i] = y; array[i + 1] = x;
+                }
+            }
+            count++;
+            if (count < array.Count - 1)
+            {
+                SortFunction(low, high - 1);
+            }
+            ///throw new NotImplementedException();
+        }
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Organizer
 {
-	public class RotateSort
-	{
+    public class RotateSort
+    {
 
         private List<int> array = new List<int>();
 
@@ -18,6 +18,7 @@ namespace Organizer
             array = new List<int>(input);
 
             SortFunction(0, array.Count - 1);
+
             return array;
         }
 
@@ -28,7 +29,14 @@ namespace Organizer
         /// <param name="high">De index within this.array to stop with</param>
         private void SortFunction(int low, int high)
         {
-            throw new NotImplementedException();
+            if (high <= low) return;
+
+            int pivot = Partitioning(low, high);
+
+            SortFunction(low, pivot - 1);
+            SortFunction(pivot + 1, high);
+
+            // throw new NotImplementedException();
         }
 
         /// 
@@ -39,7 +47,29 @@ namespace Organizer
         /// <returns>The index in the array of the first of the 'high' digits</returns>
         private int Partitioning(int low, int high)
         {
-            throw new NotImplementedException();
+            int pivot = new Random().Next(low, high + 1);//array[high];
+
+            int i = low - 1;
+
+            for(int j = low; j <= high -1; j++)
+            {
+                if (array[j] < array[pivot])
+                {
+                    i++;
+                    int temp =  array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+
+            i++;
+            int temp2 = array[i];
+            array[i] = array[pivot];
+            array[pivot] = temp2;
+
+            return i;
+
+            //throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Organizer
 {
@@ -7,9 +9,77 @@ namespace Organizer
     {
         public static void Main(string[] args)
         {
-            // Press <F5> to run this code, when "Hello World!" appears in a black box, remove the line below and write your code below.
-            Console.WriteLine("Hello World!");
-            ShowList("Example of ShowList", new List<int>() { -33, 3, 2, 2, 3, 34, 34, 32, 1, 3, 5, 3, -22, -99, 33, -22, 11, 3, 33, 12, -2, -21, 4, 34, 22, 15, 34,-22 });
+            //List<int> theList = new List<int>() { -33, 3, 2, 2, 3, 34, 34, 32, 1, 3, 5, 3, -22, -99, 33, -22, 11, 3, 33, 12, -2, -21, 4, 34, 22, 15, 34, -22 };
+#if DEBUG
+            try
+            {
+                List<int> randomList = GetRandomIntegers(2000);
+
+                ShowList("RandomList", randomList);
+
+                ShiftHighestSort shiftHighestSort = new ShiftHighestSort();
+                RotateSort rotateSort = new RotateSort();
+
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
+                List<int> sortedList1 = shiftHighestSort.Sort(randomList);
+                stopWatch.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = stopWatch.Elapsed;
+
+                // Format and display the TimeSpan value.
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                ShowList("SortedList 1", sortedList1);
+                Console.WriteLine("RunTime " + elapsedTime);
+
+                if (isThisSorted(sortedList1)) Console.WriteLine("SortedList 1 is Sorted");
+
+                Stopwatch stopWatch2 = new Stopwatch();
+                stopWatch2.Start();
+                List<int> sortedList2 = rotateSort.Sort(randomList);
+                stopWatch2.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts2 = stopWatch2.Elapsed;
+
+                // Format and display the TimeSpan value.
+                string elapsedTime2 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts2.Hours, ts2.Minutes, ts2.Seconds,
+                    ts2.Milliseconds / 10);
+                ShowList("SortedList 2", sortedList2);
+                Console.WriteLine("RunTime " + elapsedTime2);
+                if (isThisSorted(sortedList2)) Console.WriteLine("SortedList 2 is Sorted");
+            }
+            finally
+            {
+                Console.WriteLine("Press enter to close...");
+                Console.ReadLine();
+            }
+#endif
+
+        }
+
+        public static List<int> GetRandomIntegers(int n)
+        {
+            var list = new List<int>(n);
+            Random rand = new Random();
+
+            for (int i = 0; i < n; i++)
+            {
+                list.Add(rand.Next(-99, 99));
+            }
+
+            return list;
+        }
+
+        public static bool isThisSorted(List<int> ints)
+        {
+            for(int i = 0; i < ints.Count -1; i++)
+            {
+                if (ints[i] > ints[i + 1]) return false;
+            }
+            return true;
         }
 
 
