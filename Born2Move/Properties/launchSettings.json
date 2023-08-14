@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Born2Move": {
+      "commandName": "Project",
+      "sqlDebugging": true
+    }
+  }
+}

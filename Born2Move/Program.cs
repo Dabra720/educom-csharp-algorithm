@@ -1,22 +1,21 @@
-﻿namespace Born2Move
+﻿using MySqlConnector;
+
+namespace Born2Move
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-#if DEBUG
-            try
-            {
-                Console.WriteLine("Hallo, Welkom!");
-                Console.WriteLine
+            Console.WriteLine("Hello, World!");
 
-            }
-            finally
-            {
-                Console.WriteLine("Press enter to close...");
-                Console.ReadLine();
-            }
-#endif
+            Database db = new Database();
+            db.TestDatabase();
+
+            db.fillDatabase();
+            //string result = db.InsertMove();
+            
+            //Console.WriteLine(result);
         }
+
     }
 }

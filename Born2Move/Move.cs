@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class Move
+namespace Born2Move
 {
-	private int id { get; set; }
-	private string name { get; set; }
-	private string description { get; set; }
-	private int sweatRate { get; set; }
+    internal class Move
+    {
+        private int id { get; set; }
+        private string name { get; set; }
+        private string description { get; set; }
+        private int sweatRate { get; set; }
 
-	public Move()
-	{
-	}
+        public Move() { }
+    }
 }
