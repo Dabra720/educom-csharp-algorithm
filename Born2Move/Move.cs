@@ -8,11 +8,17 @@ namespace Born2Move
 {
     internal class Move
     {
-        private int id { get; set; }
-        private string name { get; set; }
-        private string description { get; set; }
-        private int sweatRate { get; set; }
+        public int id { get; init; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public int sweatRate { get; set; }
 
-        public Move() { }
+        public Move(int id, string name, string description, int sweatRate)
+        {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+            this.sweatRate = sweatRate;
+        }
     }
 }
