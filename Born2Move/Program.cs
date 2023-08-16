@@ -2,12 +2,13 @@
 {
     internal class Program
     {
-        static CRUD.Crud crud = new CRUD.Crud();
-        static Controller.Controller controller = new Controller.Controller(crud);
+        static Crud crud = new Crud();
+        static Controller controller = new Controller(crud);
 
         //static Database db = new Database();
         static void Main(string[] args)
         {
+            //crud.fillDatabase();
             controller.Start();
             /*Console.WriteLine("Hallo, Welkom!");
             Console.WriteLine();
@@ -56,45 +57,6 @@
 
         }
 
-        public void FirstChoice()
-        {
-            Console.WriteLine("Maak een keuze:");
-            Console.WriteLine();
-            Console.WriteLine("1. Krijg een suggestie");
-            Console.WriteLine("2. Kies een oefening");
-            Console.WriteLine();
-
-            bool next = false;
-            while (!next)
-            {
-                string choice = Console.ReadLine();
-                Console.WriteLine("U heeft gekozen voor: " + choice);
-                if (choice == "1")
-                {
-                    Console.WriteLine("Een bewegings suggestie");
-                    Console.WriteLine();
-                    //next = true;
-                    Move move = db.GetRandomMove();
-
-                    Console.WriteLine("Suggestie: " + move.id + ". " + move.name);
-                    break;
-                }
-                if (choice == "2")
-                {
-                    Console.WriteLine("Zelf kiezen uit lijst");
-                    Console.WriteLine();
-                    //next = true;
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Dat is geen optie, kies opnieuw:");
-                }
-
-            }
-        }
-
-        public 
 
     }
 }

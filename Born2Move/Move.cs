@@ -20,5 +20,12 @@ namespace Born2Move
             this.description = description;
             this.sweatRate = sweatRate;
         }
+
+        public Move(string name, string description, int sweatRate)
+        {
+            this.name = name;
+            this.description = description;
+            this.sweatRate= sweatRate;
+        }
     }
 }
