@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BornToMove.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Born2Move
 
         public void Start()
         {
+            
             view.Welcome();
             view.ListOrSuggestion();
 
@@ -141,7 +143,7 @@ namespace Born2Move
                 }
             }
 
-            move = new Move(name, description, sweatRate);
+            move = new Move { name = name, description = description, sweatRate = sweatRate };
 
             int id = crud.InsertMove(move);
 

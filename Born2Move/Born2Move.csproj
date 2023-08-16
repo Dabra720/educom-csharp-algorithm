@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BornToMove.Business\BornToMove.Business.csproj" />
+    <ProjectReference Include="..\BornToMove.DAL\BornToMove.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Data\born2move.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using BornToMove.DAL;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace Born2Move
             }
             return moves;
         }
-
+        
         public List<Move> GetAllMoves()
         {
             List<Move> moves = new List<Move>();
@@ -61,7 +62,13 @@ namespace Born2Move
 
                 while (result.Read())
                 {
-                    moves.Add(new Move(result.GetInt32(0), result.GetString(1), result.GetString(2), result.GetInt32(3)));
+                    moves.Add(new Move
+                    {
+                        id = result.GetInt32(0),
+                        name = result.GetString(1),
+                        description = result.GetString(2),
+                        sweatRate = result.GetInt32(3)
+                    });
                 }
             }
             catch (Exception ex)
@@ -92,7 +99,13 @@ namespace Born2Move
 
                     while (result.Read())
                     {
-                        move = new Move(result.GetInt32(0), result.GetString(1), result.GetString(2), result.GetInt32(3));
+                        move = new Move
+                        {
+                            id = result.GetInt32(0),
+                            name = result.GetString(1),
+                            description = result.GetString(2),
+                            sweatRate = result.GetInt32(3)
+                        };
                     }
 
                     if (connection.State == System.Data.ConnectionState.Open) connection.Close();
@@ -120,7 +133,12 @@ namespace Born2Move
 
                 while (result.Read())
                 {
-                    move = new Move(result.GetInt32(0), result.GetString(1), result.GetString(2), result.GetInt32(3));
+                    move = new Move { 
+                        id=result.GetInt32(0), 
+                        name=result.GetString(1), 
+                        description=result.GetString(2), 
+                        sweatRate=result.GetInt32(3) 
+                    };
                 }
             }
             catch (Exception ex)
