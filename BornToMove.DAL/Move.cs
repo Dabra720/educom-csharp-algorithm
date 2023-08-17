@@ -8,14 +8,15 @@ namespace BornToMove.DAL
 {
     public class Move
     {
-        public int id { get; init; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public int sweatRate { get; set; }
+        public int Id { get; init; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        //public int sweatRate { get; set; }
+        public ICollection<MoveRating> Ratings { get; set; }
 
         public void Show()
         {
-            Console.WriteLine("Naam: " + name + " | Sweatrate: " + sweatRate);
+            Console.WriteLine("Naam: " + Name + " | Sweatrate: " + sweatRate);
         }
        /* public Move(int id, string name, string description, int sweatRate)
         {
