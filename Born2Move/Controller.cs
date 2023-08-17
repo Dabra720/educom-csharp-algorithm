@@ -1,4 +1,5 @@
-﻿using BornToMove.DAL;
+﻿using BornToMove.Business;
+using BornToMove.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,16 @@ namespace Born2Move
 {
     internal class Controller
     {
-        private Crud crud;
+        //private Crud crud;
+        private MoveCrud crud;
+        private BuMove buMove;
         private View view;
 
-        public Controller(Crud crud = null)
+        public Controller(MoveCrud crud = null)
         {
             this.crud = crud;
             view = new View();
+            buMove = new BuMove();
         }
 
         public void Start()
@@ -32,13 +36,13 @@ namespace Born2Move
                 choice = Console.ReadLine();
                 if(choice == "1")
                 {
-                    Move suggestion = RandomMove();
+                    Move suggestion = buMove.GetRandomMove();//RandomMove();
                     view.ShowSuggestion(suggestion);
                     break;
                 }
                 if(choice == "2")
                 {
-                    List<Move> moves = crud.GetAllMoves();
+                    List<Move> moves = buMove.GetAllMoves();//crud.readAllMoves();
                     view.ShowMoveList(moves);
                     Move move = PickMove(moves);
                     view.ShowSuggestion(move);
@@ -57,9 +61,9 @@ namespace Born2Move
 
         }
 
-        public Move RandomMove()
+        /*public Move RandomMove()
         {
-            List<Move> allMoves = crud.GetAllMoves();
+            List<Move> allMoves = crud.readAllMoves();
 
             Random rdm = new Random();
             int randomIndex = rdm.Next(0, allMoves.Count);
@@ -67,7 +71,7 @@ namespace Born2Move
             Move move = allMoves[randomIndex];
 
             return move;
-        }
+        }*/
 
         public Move PickMove(List<Move> moves)
         {
@@ -82,7 +86,7 @@ namespace Born2Move
                     if(index == 0)
                     {
                         int id = MakeNewMove();
-                        move = crud.GetMoveById(id);
+                        move = crud.readMoveById(id);
                         break;
                     }
                     else
@@ -115,7 +119,7 @@ namespace Born2Move
             while (true)
             {
                 name = Console.ReadLine();
-                if (crud.GetMoveByName(name) == null)
+                if (crud.readMoveByName(name) == null)
                 {
                     break;
                 }
@@ -145,7 +149,7 @@ namespace Born2Move
 
             move = new Move { name = name, description = description, sweatRate = sweatRate };
 
-            int id = crud.InsertMove(move);
+            int id = crud.create(move);
 
             return id;
         }

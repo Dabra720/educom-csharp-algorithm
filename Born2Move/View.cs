@@ -37,7 +37,7 @@ namespace Born2Move
             for (int i = 0; i < allMoves.Count; i++)
             {
                 Move move = allMoves[i];
-                Console.WriteLine((i + 1) + ". " + move.id + " : " + move.name + " Sweatrate: " + move.sweatRate);
+                Console.WriteLine((i + 1) + ". " + move.name + " Sweatrate: " + move.sweatRate);
             }
             Console.WriteLine("0. Maak een nieuwe beweging aan.");
         }
