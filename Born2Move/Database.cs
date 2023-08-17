@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Born2Move
+namespace BornToMove
 {
     internal class Database
     {
@@ -116,7 +116,7 @@ namespace Born2Move
             }
             catch(Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
             finally
             {
@@ -151,6 +151,7 @@ namespace Born2Move
             catch (Exception ex)
             {
                 Console.WriteLine("Geen 'moves' gevonden.");
+                Console.WriteLine(ex);
             }
             finally
             {
@@ -160,7 +161,7 @@ namespace Born2Move
             return moves;
         }
 
-        public Move GetMoveById(int id)
+        public Move? GetMoveById(int id)
         {
             Move move = null;
             try

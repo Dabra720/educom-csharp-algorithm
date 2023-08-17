@@ -7,27 +7,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Born2Move
+namespace BornToMove
 {
     internal class Controller
     {
         //private Crud crud;
-        private MoveCrud crud;
+        //private MoveCrud crud;
         private BuMove buMove;
         private View view;
 
-        public Controller(MoveCrud crud = null)
+        public Controller()
         {
-            this.crud = crud;
+            //this.crud = crud;
             view = new View();
             buMove = new BuMove();
         }
 
         public void Start()
         {
-            
-            view.Welcome();
-            view.ListOrSuggestion();
+            Console.WriteLine("Welkom!");
+            Console.WriteLine("Het is weer tijd om te bewegen!");
+
+            Console.WriteLine("Maak een keuze:");
+            Console.WriteLine();
+            Console.WriteLine("1. Krijg een suggestie");
+            Console.WriteLine("2. Kies een oefening");
+            Console.WriteLine();
 
             string choice = "";
 
@@ -36,22 +41,29 @@ namespace Born2Move
                 choice = Console.ReadLine();
                 if(choice == "1")
                 {
-                    Move suggestion = buMove.GetRandomMove();//RandomMove();
-                    view.ShowSuggestion(suggestion);
+                    Move suggestion = buMove.GetRandomMove();
+                    Console.WriteLine("Onze suggestie:");
+                    suggestion.Show();
                     break;
                 }
                 if(choice == "2")
                 {
-                    List<Move> moves = buMove.GetAllMoves();//crud.readAllMoves();
-                    view.ShowMoveList(moves);
-                    Move move = PickMove(moves);
-                    view.ShowSuggestion(move);
+                    List<Move> moves = buMove.GetAllMoves();
+
+                    Console.WriteLine("Kies uit onderstaande bewegingen:");
+                    view.ShowMoveList(moves); // Print alle moves 
+                    Console.WriteLine("0. Maak een nieuwe beweging aan.");
+
+                    Move move = PickMove(moves); 
+
+                    Console.WriteLine("Dit heeft u gekozen:");
+                    move.Show();
                     break;
                 }
             }
 
-            
 
+            Console.WriteLine();
             Console.WriteLine("Hoe vond je de oefening?");
             Console.WriteLine("Beoordeling: (1-5) ");
             Console.ReadLine();
@@ -60,18 +72,6 @@ namespace Born2Move
 
 
         }
-
-        /*public Move RandomMove()
-        {
-            List<Move> allMoves = crud.readAllMoves();
-
-            Random rdm = new Random();
-            int randomIndex = rdm.Next(0, allMoves.Count);
-
-            Move move = allMoves[randomIndex];
-
-            return move;
-        }*/
 
         public Move PickMove(List<Move> moves)
         {
@@ -86,7 +86,7 @@ namespace Born2Move
                     if(index == 0)
                     {
                         int id = MakeNewMove();
-                        move = crud.readMoveById(id);
+                        move = buMove.GetMoveById(id);
                         break;
                     }
                     else
@@ -119,7 +119,7 @@ namespace Born2Move
             while (true)
             {
                 name = Console.ReadLine();
-                if (crud.readMoveByName(name) == null)
+                if (buMove.GetMoveByName(name) == null)
                 {
                     break;
                 }
@@ -149,7 +149,7 @@ namespace Born2Move
 
             move = new Move { name = name, description = description, sweatRate = sweatRate };
 
-            int id = crud.create(move);
+            int id = buMove.SaveMove(move);
 
             return id;
         }

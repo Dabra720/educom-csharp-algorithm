@@ -29,6 +29,18 @@ namespace BornToMove.Business
             return moves;
         }
 
+        public Move GetMoveById(int id)
+        {
+            Move move = crud.readMoveById(id);
+            return move;
+        }
+
+        public Move GetMoveByName(string name)
+        {
+            Move move = crud.readMoveByName(name);
+            return move;
+        }
+
         public int SaveMove(Move move)
         {
             if (crud.readMoveByName(move.name) != null) return 0; // Already exists

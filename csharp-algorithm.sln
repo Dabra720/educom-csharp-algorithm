@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Born2Move", "Born2Move\Born2Move.csproj", "{D733D869-044C-444B-B529-908FA991E332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BornToMove", "Born2Move\BornToMove.csproj", "{D733D869-044C-444B-B529-908FA991E332}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.Business", "BornToMove.Business\BornToMove.Business.csproj", "{6B6F82F5-E07D-42DB-8F03-69E7E4FC3092}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BornToMove.Business", "BornToMove.Business\BornToMove.Business.csproj", "{6B6F82F5-E07D-42DB-8F03-69E7E4FC3092}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BornToMove.DAL", "BornToMove.DAL\BornToMove.DAL.csproj", "{BCAB0048-B923-4E17-AB0C-E31F8219DDF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BornToMove.DAL", "BornToMove.DAL\BornToMove.DAL.csproj", "{BCAB0048-B923-4E17-AB0C-E31F8219DDF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

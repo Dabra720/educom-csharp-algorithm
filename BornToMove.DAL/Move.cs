@@ -13,6 +13,10 @@ namespace BornToMove.DAL
         public string description { get; set; }
         public int sweatRate { get; set; }
 
+        public void Show()
+        {
+            Console.WriteLine("Naam: " + name + " | Sweatrate: " + sweatRate);
+        }
        /* public Move(int id, string name, string description, int sweatRate)
         {
             this.id = id;

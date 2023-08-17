@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BornToMove.Business\BornToMove.Business.csproj" />
     <ProjectReference Include="..\BornToMove.DAL\BornToMove.DAL.csproj" />
   </ItemGroup>
