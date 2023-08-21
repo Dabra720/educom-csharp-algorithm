@@ -68,8 +68,12 @@ namespace BornToMove.DAL
                 .Select(move => new MoveWithRating()
                 {
                     Move = move,
-                    AverageRating = move.Ratings.Select(r=>r.Rating).DefaultIfEmpty().Average()
-                }).Where(move => move.Move.Name == name).First();
+                    AverageRating = move.Ratings.Select(r=>r.Rating)
+                                                .DefaultIfEmpty()
+                                                .Average()
+                })
+                .Where(move => move.Move.Name == name)
+                .First();
 
             return move;
         }
