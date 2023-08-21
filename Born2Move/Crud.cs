@@ -64,10 +64,10 @@ namespace BornToMove
                 {
                     moves.Add(new Move
                     {
-                        id = result.GetInt32(0),
-                        name = result.GetString(1),
-                        description = result.GetString(2),
-                        sweatRate = result.GetInt32(3)
+                        Id = result.GetInt32(0),
+                        Name = result.GetString(1),
+                        Description = result.GetString(2)
+                        //sweatRate = result.GetInt32(3)
                     });
                 }
             }
@@ -101,10 +101,10 @@ namespace BornToMove
                     {
                         move = new Move
                         {
-                            id = result.GetInt32(0),
-                            name = result.GetString(1),
-                            description = result.GetString(2),
-                            sweatRate = result.GetInt32(3)
+                            Id = result.GetInt32(0),
+                            Name = result.GetString(1),
+                            Description = result.GetString(2)
+                            //sweatRate = result.GetInt32(3)
                         };
                     }
 
@@ -134,10 +134,10 @@ namespace BornToMove
                 while (result.Read())
                 {
                     move = new Move { 
-                        id=result.GetInt32(0), 
-                        name=result.GetString(1), 
-                        description=result.GetString(2), 
-                        sweatRate=result.GetInt32(3) 
+                        Id=result.GetInt32(0), 
+                        Name=result.GetString(1), 
+                        Description=result.GetString(2)
+                        //sweatRate=result.GetInt32(3) 
                     };
                 }
             }
@@ -174,9 +174,9 @@ namespace BornToMove
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@name", move.name);
-                    cmd.Parameters.AddWithValue("@description", move.description);
-                    cmd.Parameters.AddWithValue("@sweatRate", move.sweatRate);
+                    cmd.Parameters.AddWithValue("@name", move.Name);
+                    cmd.Parameters.AddWithValue("@description", move.Description);
+                    //cmd.Parameters.AddWithValue("@sweatRate", move.sweatRate);
                     connection.Open();
 
                     int modified = Convert.ToInt32(cmd.ExecuteScalar());

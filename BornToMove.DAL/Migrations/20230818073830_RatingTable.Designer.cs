@@ -3,6 +3,7 @@ using BornToMove.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BornToMove.DAL.Migrations
 {
     [DbContext(typeof(MoveContext))]
-    partial class MoveContextModelSnapshot : ModelSnapshot
+    [Migration("20230818073830_RatingTable")]
+    partial class RatingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,35 +40,9 @@ namespace BornToMove.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("sweatRate")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Move");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Ga horizontaal liggen op teentoppen en handen. Laat het lijf langzaam zakken tot de neus de grond bijna raakt. Duw het lijf terug nu omhoog tot de ellebogen bijna gestrekt zijn. Vervolgens weer laten zakken. Doe dit 20 keer zonder tussenpauzes",
-                            Name = "Push up",
-                            sweatRate = 3
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Ga horizontaal liggen op teentoppen en onderarmen. Houdt deze positie 1 minuut vast",
-                            Name = "Planking",
-                            sweatRate = 3
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Ga staan met gestrekte armen. Zak door de knieën tot de billen de grond bijna raken. Ga weer volledig gestrekt staan. Herhaal dit 20 keer zonder tussenpauzes",
-                            Name = "Squad",
-                            sweatRate = 3
-                        });
                 });
 
             modelBuilder.Entity("BornToMove.DAL.MoveRating", b =>

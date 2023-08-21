@@ -12,7 +12,7 @@ namespace BornToMove
     internal class Controller
     {
         //private Crud crud;
-        //private MoveCrud crud;
+        private MoveCrud moveCrud= new MoveCrud();
         private BuMove buMove;
         private View view;
 
@@ -20,7 +20,7 @@ namespace BornToMove
         {
             //this.crud = crud;
             view = new View();
-            buMove = new BuMove();
+            buMove = new BuMove(moveCrud);
         }
 
         public void Start()
@@ -35,15 +35,16 @@ namespace BornToMove
             Console.WriteLine();
 
             string choice = "";
+            Move move;
 
             while (true)
             {
                 choice = Console.ReadLine();
                 if(choice == "1")
                 {
-                    Move suggestion = buMove.GetRandomMove();
+                    move = buMove.GetRandomMove();
                     Console.WriteLine("Onze suggestie:");
-                    suggestion.Show();
+                    move.Show();
                     break;
                 }
                 if(choice == "2")
@@ -54,7 +55,7 @@ namespace BornToMove
                     view.ShowMoveList(moves); // Print alle moves 
                     Console.WriteLine("0. Maak een nieuwe beweging aan.");
 
-                    Move move = PickMove(moves); 
+                    move = PickMove(moves); 
 
                     Console.WriteLine("Dit heeft u gekozen:");
                     move.Show();
@@ -62,14 +63,74 @@ namespace BornToMove
                 }
             }
 
+            RateMove(move);
+
+
+            var moveWithRating = buMove.GetMoveByName(move.Name);
+
+            Console.WriteLine();
+            Console.WriteLine("De bewerkte move:");
+            Console.WriteLine("Naam: " + moveWithRating.Move.Name + " | Rating: " + moveWithRating.AverageRating);
+            Console.WriteLine();
+            Console.WriteLine("Bedankt voor uw feedback!");
+
+        }
+
+        public void RateMove(Move move)
+        {
+            string ratingStr;
+            string voteStr;
+            double rating, vote;
 
             Console.WriteLine();
             Console.WriteLine("Hoe vond je de oefening?");
-            Console.WriteLine("Beoordeling: (1-5) ");
-            Console.ReadLine();
-            Console.WriteLine("Intensiteit: (1-5) ");
-            Console.ReadLine();
 
+            Console.WriteLine("Beoordeling: (1-5) ");
+            while(true)
+            {
+                try
+                {
+                    ratingStr = Console.ReadLine();
+                    rating = double.Parse(ratingStr);
+                    if(rating >= 1 && rating <= 5) { 
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tussen 1 en 5");
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Dat is geen juiste rating");
+                }
+
+            }
+
+            Console.WriteLine("Intensiteit: (1-5) ");
+            while (true)
+            {
+                try
+                {
+                    voteStr = Console.ReadLine();
+                    vote = double.Parse(voteStr);
+                    if (rating >= 1 && rating <= 5)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tussen 1 en 5");
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Dat is geen juiste rating");
+                }
+
+            }
+
+            buMove.SaveRating(rating, vote, move);
 
         }
 
@@ -92,7 +153,7 @@ namespace BornToMove
                     else
                     {
                         move = moves[index - 1];
-                        Console.WriteLine("Je hebt gekozen! " + move.name);
+                        Console.WriteLine("Je hebt gekozen! " + move.Name);
                         break;
                     }
                     
@@ -147,7 +208,7 @@ namespace BornToMove
                 }
             }
 
-            move = new Move { name = name, description = description, sweatRate = sweatRate };
+            move = new Move { Name = name, Description = description , sweatRate = sweatRate };
 
             int id = buMove.SaveMove(move);
 

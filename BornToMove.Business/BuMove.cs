@@ -6,19 +6,20 @@ namespace BornToMove.Business
     {
         private MoveCrud crud;
 
-        public BuMove()
+        public BuMove(MoveCrud moveCrud)
         {
-            crud = new MoveCrud();
+            crud = moveCrud;
         }
 
         public Move GetRandomMove()
         {
-            List<Move> allMoves = crud.readAllMoves();
+            //List<Move> allMoves = crud.readAllMoves();
+            List<int> moveIds = crud.readAllMoveIds();
 
             Random rdm = new Random();
-            int randomIndex = rdm.Next(0, allMoves.Count);
+            int randomIndex = rdm.Next(0, moveIds.Count);// allMoves.Count);
 
-            Move move = allMoves[randomIndex];
+            Move move = crud.readMoveById(moveIds[randomIndex]);//allMoves[randomIndex];
 
             return move;
         }
@@ -35,15 +36,15 @@ namespace BornToMove.Business
             return move;
         }
 
-        public Move GetMoveByName(string name)
+        public MoveWithRating GetMoveByName(string name)
         {
-            Move move = crud.readMoveByName(name);
+            MoveWithRating move = crud.readMoveByName(name);
             return move;
         }
 
         public int SaveMove(Move move)
         {
-            if (crud.readMoveByName(move.name) != null) return 0; // Already exists
+            if (crud.readMoveByName(move.Name) != null) return 0; // Already exists
 
             int id = crud.create(move);
 
@@ -52,11 +53,25 @@ namespace BornToMove.Business
 
         public void UpdateMove(Move updated)
         {
-            if (crud.readMoveByName(updated.name) != null) return; // Name already exists
+            if (crud.readMoveByName(updated.Name) != null) return; // Name already exists
 
             crud.update(updated);
         }
 
         public void DeleteMove(int id) { crud.delete(id); }
+
+        public int SaveRating(double rating, double vote, Move move)
+        {
+            var moveRating = new MoveRating
+            {
+                move = move,
+                Rating = rating,
+                Vote = vote
+            };
+
+            int ratingId = crud.createMoveRating(moveRating);
+
+            return ratingId;
+        }
     }
 }
