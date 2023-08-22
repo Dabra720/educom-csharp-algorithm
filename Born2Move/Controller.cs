@@ -1,5 +1,6 @@
 ﻿using BornToMove.Business;
 using BornToMove.DAL;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,8 +137,8 @@ namespace BornToMove
 
         public Move PickMove(List<Move> moves)
         {
-            string choice = "";
-            Move move = null;
+            string choice;
+            Move move;
             while(true)
             {
                 choice = Console.ReadLine();
@@ -161,6 +162,7 @@ namespace BornToMove
                 }
                 catch(Exception ex) 
                 {
+                    Console.WriteLine(ex);
                     Console.WriteLine("Geen beweging!");
                 }
             }
@@ -170,9 +172,9 @@ namespace BornToMove
 
         public int MakeNewMove()
         {
-            string name, description;
+            string name, description="";
             int sweatRate;
-            Move move = null;
+            Move move;
 
             Console.WriteLine("Maak een nieuwe beweging:");
 
@@ -191,7 +193,11 @@ namespace BornToMove
             }
 
             Console.WriteLine("Beschrijving:");
-            description = Console.ReadLine();
+            while(description.IsNullOrEmpty())
+            {
+                description = Console.ReadLine();
+
+            }
 
             Console.WriteLine("Hoeveelheid zweet van 1 tot 5:");
             while (true)
@@ -202,7 +208,7 @@ namespace BornToMove
                     sweatRate = int.Parse(input);
                     break;
                 }
-                catch(Exception ex)
+                catch
                 {
                     Console.WriteLine("Een cijfer tussen 1 en 5");
                 }

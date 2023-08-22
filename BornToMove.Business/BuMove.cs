@@ -4,61 +4,61 @@ namespace BornToMove.Business
 {
     public class BuMove
     {
-        private MoveCrud crud;
+        private readonly MoveCrud crud;
 
         public BuMove(MoveCrud moveCrud)
         {
             crud = moveCrud;
         }
 
-        public Move GetRandomMove()
+        public Move? GetRandomMove()
         {
             //List<Move> allMoves = crud.readAllMoves();
-            List<int> moveIds = crud.readAllMoveIds();
+            List<int> moveIds = crud.ReadAllMoveIds();
 
-            Random rdm = new Random();
+            Random rdm = new();
             int randomIndex = rdm.Next(0, moveIds.Count);// allMoves.Count);
 
-            Move move = crud.readMoveById(moveIds[randomIndex]);//allMoves[randomIndex];
+            Move? move = crud.ReadMoveById(moveIds[randomIndex]);//allMoves[randomIndex];
 
             return move;
         }
 
         public List<Move> GetAllMoves()
         {
-            List<Move> moves = crud.readAllMoves();
+            List<Move> moves = crud.ReadAllMoves();
             return moves;
         }
 
-        public Move GetMoveById(int id)
+        public Move? GetMoveById(int id)
         {
-            Move move = crud.readMoveById(id);
+            Move? move = crud.ReadMoveById(id);
             return move;
         }
 
-        public MoveWithRating GetMoveByName(string name)
+        public MoveWithRating? GetMoveByName(string name)
         {
-            MoveWithRating move = crud.readMoveByName(name);
+            MoveWithRating? move = crud.ReadMoveByName(name);
             return move;
         }
 
         public int SaveMove(Move move)
         {
-            if (crud.readMoveByName(move.Name) != null) return 0; // Already exists
+            if (crud.ReadMoveByName(move.Name) != null) return 0; // Already exists
 
-            int id = crud.create(move);
+            int id = crud.Create(move);
 
             return id;
         }
 
         public void UpdateMove(Move updated)
         {
-            if (crud.readMoveByName(updated.Name) != null) return; // Name already exists
+            if (crud.ReadMoveByName(updated.Name) != null) return; // Name already exists
 
-            crud.update(updated);
+            crud.Update(updated);
         }
 
-        public void DeleteMove(int id) { crud.delete(id); }
+        public void DeleteMove(int id) { crud.Delete(id); }
 
         public int SaveRating(double rating, double vote, Move move)
         {
@@ -69,7 +69,7 @@ namespace BornToMove.Business
                 Vote = vote
             };
 
-            int ratingId = crud.createMoveRating(moveRating);
+            int ratingId = crud.CreateMoveRating(moveRating);
 
             return ratingId;
         }

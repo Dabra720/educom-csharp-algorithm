@@ -9,14 +9,14 @@ namespace BornToMove.DAL
 {
     public class MoveCrud
     {
-        private MoveContext context;
+        private readonly MoveContext context;
 
         public MoveCrud()
         {
             context = new MoveContext();
         }
 
-        public int create(Move move)
+        public int Create(Move move)
         {
             int id = 0;
 
@@ -28,7 +28,7 @@ namespace BornToMove.DAL
             return id;
         }
 
-        public void update(Move updated)
+        public void Update(Move updated)
         {
             var move = context.Move.Find(updated.Id);
             move.Name = updated.Name;
@@ -38,26 +38,26 @@ namespace BornToMove.DAL
 
         }
 
-        public void delete(int id) 
+        public void Delete(int id) 
         {
-            Move move = new Move { Id = id };
+            Move move = new() { Id = id };
             
             context.Move.Remove(move);
             context.SaveChanges();
             
         }
 
-        public Move readMoveById(int id)
+        public Move? ReadMoveById(int id)
         {
-            Move move = null;
+            //Move move = null;
             
             //move = context.Move.Where(a =>  a.id == id).Single();
-            move = context.Move.Find(id);
+            Move? move = context.Move.Find(id);
             
             return move;
         }
 
-        public MoveWithRating readMoveByName(string name)
+        public MoveWithRating? ReadMoveByName(string name)
         {
             //Move move = null;
 
@@ -73,38 +73,36 @@ namespace BornToMove.DAL
                                                 .Average()
                 })
                 .Where(move => move.Move.Name == name)
-                .First();
+                .FirstOrDefault();
 
             return move;
         }
 
-        public List<Move> readAllMoves()
+        public List<Move> ReadAllMoves()
         {
             List<Move> moves = context.Move.ToList();
 
             return moves;
         }
 
-        public List<int> readAllMoveIds()
+        public List<int> ReadAllMoveIds()
         {
             List<int> moveIds = context.Move.Select(move => move.Id).ToList();
 
             return moveIds;
         }
 
-        public int createMoveRating(MoveRating rating)
+        public int CreateMoveRating(MoveRating rating)
         {
-            var ratingId = 0;
-            
             context.MoveRating.Add(rating);
             context.SaveChanges();
 
-            ratingId = rating.Id;
+            var ratingId = rating.Id;
 
             return ratingId;
         }
 
-        public MoveRating readMoveRatingById(int id)
+        public MoveRating? ReadMoveRatingById(int id)
         {
             var moveRating = context.MoveRating.Find(id);
             return moveRating;

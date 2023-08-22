@@ -185,7 +185,7 @@ namespace BornToMove
                     return modified;
                 }
             }
-            catch (Exception ex) { return 0; }
+            catch { return 0; }
            /* try
             {
                 connection.Open();

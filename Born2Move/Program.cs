@@ -6,7 +6,7 @@ namespace BornToMove
     {
         static Controller controller = new Controller();
 
-        static void Main(string[] args)
+        static void Main(string[] _)
         {
             //crud.fillDatabase();
 

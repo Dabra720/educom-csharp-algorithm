@@ -3,22 +3,22 @@ using System.Collections.Generic;
 
 namespace Organizer
 {
-    public class RotateSort
+    public class RotateSort<T>
     {
 
-        private List<int> array = new();
-        //private IComparer<T> Comparer { get; set; }
+        private List<T> array = new();
+        private IComparer<T> Comparer { get; set; }
 
         /// <summary>
         /// Sort an array using the functions below
         /// </summary>
         /// <param name="input">The unsorted array</param>
         /// <returns>The sorted array</returns>
-        //public List<T> Sort(List<T> input, IComparer<T> comparer)
-        public List<int> Sort(List<int> input)
+        public List<T> Sort(List<T> input, IComparer<T> comparer)
+        //public List<int> Sort(List<int> input)
         {
-            this.array = new List<int>(input);
-            //Comparer = comparer;
+            this.array = new List<T>(input);
+            Comparer = comparer;
             SortFunction(0, array.Count - 1);
 
             return array;
@@ -32,7 +32,6 @@ namespace Organizer
         private void SortFunction(int low, int high)
         {
             if (high <= low) return;
-            //if(Comparer.Compare(low, high) >= 0) { return; }
 
             int pivot = Partitioning(low, high);
 
@@ -58,8 +57,8 @@ namespace Organizer
 
             for(int j = low; j <= high - 1; j++)
             {
-                if (array[j] < array[pivot])
-                //if (Comparer.Compare(array[j], array[pivot]) < 0)
+                //if (array[j] < array[pivot])
+                if (Comparer.Compare(array[j], array[pivot]) < 0)
                 {
                     i++;
                     (array[j], array[i]) = (array[i], array[j]);
