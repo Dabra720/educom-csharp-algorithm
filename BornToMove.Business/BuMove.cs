@@ -49,7 +49,7 @@ namespace BornToMove.Business
 
         public MoveWithRating? GetMoveByName(string name)
         {
-            MoveWithRating? move = crud.ReadMoveByName(name);
+            var move = crud.ReadMoveByName(name);
             return move;
         }
 

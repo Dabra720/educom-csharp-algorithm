@@ -35,11 +35,10 @@ namespace BornToMove
             Console.WriteLine("2. Kies een oefening");
             Console.WriteLine();
 
-            string choice = "";
-            MoveWithRating move;
+            MoveWithRating? move;
             while (true)
             {
-                choice = Console.ReadLine();
+                string choice = Console.ReadLine();
                 if(choice == "1")
                 {
                     move = buMove.GetRandomMoveWithRating();
@@ -133,10 +132,10 @@ namespace BornToMove
 
         }
 
-        public MoveWithRating PickMove(List<MoveWithRating> moves)
+        public MoveWithRating? PickMove(List<MoveWithRating> moves)
         {
             string choice;
-            MoveWithRating move;
+            MoveWithRating? move;
             while(true)
             {
                 choice = Console.ReadLine();

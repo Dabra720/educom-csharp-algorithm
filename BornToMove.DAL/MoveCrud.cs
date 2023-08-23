@@ -18,19 +18,17 @@ namespace BornToMove.DAL
 
         public int Create(Move move)
         {
-            int id = 0;
-
             context.Move.Add(move);
             context.SaveChanges();
 
-            id = move.Id;
+            int id = move.Id;
             
             return id;
         }
 
         public void Update(Move updated)
         {
-            var move = context.Move.Find(updated.Id);
+            Move move = context.Move.Single(m => m.Id == updated.Id);
             move.Name = updated.Name;
             move.Description = updated.Description;
             move.sweatRate = updated.sweatRate;
@@ -47,10 +45,10 @@ namespace BornToMove.DAL
             
         }
 
-        public Move ReadMoveById(int id)
+        public Move? ReadMoveById(int id)
         {
             //move = context.Move.Where(a =>  a.id == id).Single();
-            Move? move = context.Move.Find(id);
+            var move = context.Move.Find(id);
             return move;
         }
 
@@ -96,9 +94,9 @@ namespace BornToMove.DAL
             return moves;
         }
 
-        public List<MoveWithRating?> ReadAllMoveWithRatings()
+        public List<MoveWithRating> ReadAllMoveWithRatings()
         {
-            List<MoveWithRating?> moves = context.Move
+            List<MoveWithRating> moves = context.Move
                 .Select(move => new MoveWithRating()
                 {
                     Move = move,
@@ -106,8 +104,8 @@ namespace BornToMove.DAL
                                                 .DefaultIfEmpty()
                                                 .Average()
                 })
-                .DefaultIfEmpty()
                 .ToList();
+            
 
             return moves;
         }

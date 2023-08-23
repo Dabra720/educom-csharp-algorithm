@@ -10,7 +10,8 @@ namespace BornToMove
 {
     internal class View
     {
-        public void ShowMove(MoveWithRating move) {
+        public void ShowMove(MoveWithRating? move) {
+            if (move == null) return;
             Console.WriteLine(move.Move.Id + ". " + move.Move.Name + " | Rating: " + move.AverageRating);
         }
 
