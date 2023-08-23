@@ -1,14 +1,17 @@
 ﻿using BornToMove.DAL;
+using Organizer;
 
 namespace BornToMove.Business
 {
     public class BuMove
     {
         private readonly MoveCrud crud;
+        private RotateSort<MoveWithRating> sorter;
 
         public BuMove(MoveCrud moveCrud)
         {
             crud = moveCrud;
+            sorter = new RotateSort<MoveWithRating>();
         }
 
         public Move? GetRandomMove()
@@ -23,16 +26,24 @@ namespace BornToMove.Business
 
             return move;
         }
-
-        public List<Move> GetAllMoves()
+        public MoveWithRating GetRandomMoveWithRating()
         {
-            List<Move> moves = crud.ReadAllMoves();
+            List<int> moveIds = crud.ReadAllMoveIds();
+            int rndIndex = new Random().Next(0, moveIds.Count);
+            var move = crud.ReadMoveWithRatingById(moveIds[rndIndex]);
+            return move;
+        }
+
+        public List<MoveWithRating> GetAllMoves()
+        {
+            List<MoveWithRating> moves = crud.ReadAllMoveWithRatings();
+            moves = sorter.Sort(moves, new RatingsConverter());
             return moves;
         }
 
-        public Move? GetMoveById(int id)
+        public MoveWithRating? GetMoveById(int id)
         {
-            Move? move = crud.ReadMoveById(id);
+            MoveWithRating? move = crud.ReadMoveWithRatingById(id);
             return move;
         }
 
@@ -64,7 +75,7 @@ namespace BornToMove.Business
         {
             var moveRating = new MoveRating
             {
-                move = move,
+                Move = move,
                 Rating = rating,
                 Vote = vote
             };

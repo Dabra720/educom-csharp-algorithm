@@ -36,21 +36,20 @@ namespace BornToMove
             Console.WriteLine();
 
             string choice = "";
-            Move move;
-
+            MoveWithRating move;
             while (true)
             {
                 choice = Console.ReadLine();
                 if(choice == "1")
                 {
-                    move = buMove.GetRandomMove();
+                    move = buMove.GetRandomMoveWithRating();
                     Console.WriteLine("Onze suggestie:");
-                    move.Show();
+                    view.ShowMove(move);
                     break;
                 }
                 if(choice == "2")
                 {
-                    List<Move> moves = buMove.GetAllMoves();
+                    List<MoveWithRating> moves = buMove.GetAllMoves();
 
                     Console.WriteLine("Kies uit onderstaande bewegingen:");
                     view.ShowMoveList(moves); // Print alle moves 
@@ -59,19 +58,18 @@ namespace BornToMove
                     move = PickMove(moves); 
 
                     Console.WriteLine("Dit heeft u gekozen:");
-                    move.Show();
+                    view.ShowMove(move);
                     break;
                 }
             }
 
-            RateMove(move);
+            RateMove(move.Move);
 
 
-            var moveWithRating = buMove.GetMoveByName(move.Name);
 
             Console.WriteLine();
             Console.WriteLine("De bewerkte move:");
-            Console.WriteLine("Naam: " + moveWithRating.Move.Name + " | Rating: " + moveWithRating.AverageRating);
+            Console.WriteLine("Naam: " + move.Move.Name + " | Rating: " + move.AverageRating);
             Console.WriteLine();
             Console.WriteLine("Bedankt voor uw feedback!");
 
@@ -135,10 +133,10 @@ namespace BornToMove
 
         }
 
-        public Move PickMove(List<Move> moves)
+        public MoveWithRating PickMove(List<MoveWithRating> moves)
         {
             string choice;
-            Move move;
+            MoveWithRating move;
             while(true)
             {
                 choice = Console.ReadLine();
@@ -154,7 +152,7 @@ namespace BornToMove
                     else
                     {
                         move = moves[index - 1];
-                        Console.WriteLine("Je hebt gekozen! " + move.Name);
+                        Console.WriteLine("Je hebt gekozen! " + move.Move.Name);
                         break;
                     }
                     

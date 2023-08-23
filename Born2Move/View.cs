@@ -10,12 +10,16 @@ namespace BornToMove
 {
     internal class View
     {
-        public void ShowMoveList(List<Move> allMoves)
+        public void ShowMove(MoveWithRating move) {
+            Console.WriteLine(move.Move.Id + ". " + move.Move.Name + " | Rating: " + move.AverageRating);
+        }
+
+        public void ShowMoveList(List<MoveWithRating> allMoves)
         {
             for (int i = 0; i < allMoves.Count; i++)
             {
-                Move move = allMoves[i];
-                Console.WriteLine((i + 1) + ". " + move.Name);
+                MoveWithRating move = allMoves[i];
+                Console.WriteLine((i + 1) + ". " + move.Move.Name + " | Rating: " + move.AverageRating);
             }
         }
     }

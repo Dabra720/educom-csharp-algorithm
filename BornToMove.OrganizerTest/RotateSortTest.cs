@@ -24,8 +24,11 @@ namespace BornToMove.OrganizerTest
         {
             return new object[][]
             {
-                new List<int>[]    { new List<int>    {76, 43},          new List<int>    { 43, 76 } },
-                new List<double>[] { new List<double> {  4.3, 1.3, 4.1}, new List<double> { 1.3, 4.1, 4.3} }
+                new List<int>[]    { new List<int>(),                    new List<int>    { } }, // Empty
+                new List<int>[]    { new List<int>    { 36 },            new List<int>    { 36 } }, // One element
+                new List<int>[]    { new List<int>    { 76, 43 },        new List<int>    { 43, 76 } }, // Two elements
+                new List<int>[]    { new List<int>()  { 3, 3, 3 },       new List<int>    { 3, 3, 3 } }, // Three equal elements
+                new List<double>[] { new List<double> { 4.3, 1.3, 4.1},  new List<double> { 1.3, 4.1, 4.3} } // Doubles
             };
         }
 
@@ -34,15 +37,18 @@ namespace BornToMove.OrganizerTest
         {
             //prepare
             var sorter = new RotateSort<T>();
+            var numItems = input.Count;
 
             //run
             var result = sorter.Sort(input, Comparer<T>.Default);
 
             //validate
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Has.Exactly(numItems).Items);
             Assert.That(result, Is.EquivalentTo(expectedResult));
         }
 
-        [Test]
+        /*[Test]
         public void TestSort_Empty()
         {
             //prepare
@@ -105,7 +111,7 @@ namespace BornToMove.OrganizerTest
             Assert.That(result, Has.Exactly(3).Items);
             Assert.That(result, Is.EquivalentTo(new int[] { 3, 3, 3 }));
 
-        }
+        }*/
 
         [Test]
         public void TestSort_ThreeUnsorted()

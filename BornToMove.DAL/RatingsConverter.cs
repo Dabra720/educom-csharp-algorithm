@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace BornToMove.DAL
 {
-    internal class RatingsConverter : IComparer<MoveRating>
+    public class RatingsConverter : IComparer<MoveWithRating>
     {
-        public int Compare(MoveRating? x, MoveRating? y)
+        public int Compare(MoveWithRating x, MoveWithRating y)
         {
-            throw new NotImplementedException();
+            return y.AverageRating.CompareTo(x.AverageRating);
+            
         }
     }
 }

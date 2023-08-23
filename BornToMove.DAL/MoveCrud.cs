@@ -47,12 +47,23 @@ namespace BornToMove.DAL
             
         }
 
-        public Move? ReadMoveById(int id)
+        public Move ReadMoveById(int id)
         {
-            //Move move = null;
-            
             //move = context.Move.Where(a =>  a.id == id).Single();
             Move? move = context.Move.Find(id);
+            return move;
+        }
+
+        public MoveWithRating? ReadMoveWithRatingById(int id)
+        {
+            var move = context.Move
+                .Select(move => new MoveWithRating()
+                {
+                    Move = move,
+                    AverageRating = move.Ratings.Select(r => r.Rating).Average()
+                })
+                .Where(m=> m.Move.Id == id)
+                .FirstOrDefault();
             
             return move;
         }
@@ -85,6 +96,22 @@ namespace BornToMove.DAL
             return moves;
         }
 
+        public List<MoveWithRating?> ReadAllMoveWithRatings()
+        {
+            List<MoveWithRating?> moves = context.Move
+                .Select(move => new MoveWithRating()
+                {
+                    Move = move,
+                    AverageRating = move.Ratings.Select(r => r.Rating)
+                                                .DefaultIfEmpty()
+                                                .Average()
+                })
+                .DefaultIfEmpty()
+                .ToList();
+
+            return moves;
+        }
+
         public List<int> ReadAllMoveIds()
         {
             List<int> moveIds = context.Move.Select(move => move.Id).ToList();
@@ -97,9 +124,9 @@ namespace BornToMove.DAL
             context.MoveRating.Add(rating);
             context.SaveChanges();
 
-            var ratingId = rating.Id;
+            var moveId = rating.Move.Id;
 
-            return ratingId;
+            return moveId;
         }
 
         public MoveRating? ReadMoveRatingById(int id)

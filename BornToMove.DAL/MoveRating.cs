@@ -9,7 +9,7 @@ namespace BornToMove.DAL
     public class MoveRating
     {
         public int Id { get; set; }
-        public Move move { get; set; }
+        public Move Move { get; set; }
         public double Rating { get; set; }
         public double Vote { get; set; }
         
