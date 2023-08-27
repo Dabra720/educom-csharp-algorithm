@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BornToMove.DAL.Contracts;
 
 namespace BornToMove.DAL
 {
-    public class MoveCrud
+    public class MoveCrud : IMoveCrud
     {
         private readonly MoveContext context;
 
@@ -22,7 +17,7 @@ namespace BornToMove.DAL
             context.SaveChanges();
 
             int id = move.Id;
-            
+
             return id;
         }
 
@@ -36,13 +31,13 @@ namespace BornToMove.DAL
 
         }
 
-        public void Delete(int id) 
+        public void Delete(int id)
         {
             Move move = new() { Id = id };
-            
+
             context.Move.Remove(move);
             context.SaveChanges();
-            
+
         }
 
         public Move? ReadMoveById(int id)
@@ -60,9 +55,9 @@ namespace BornToMove.DAL
                     Move = move,
                     AverageRating = move.Ratings.Select(r => r.Rating).Average()
                 })
-                .Where(m=> m.Move.Id == id)
+                .Where(m => m.Move.Id == id)
                 .FirstOrDefault();
-            
+
             return move;
         }
 
@@ -77,7 +72,7 @@ namespace BornToMove.DAL
                 .Select(move => new MoveWithRating()
                 {
                     Move = move,
-                    AverageRating = move.Ratings.Select(r=>r.Rating)
+                    AverageRating = move.Ratings.Select(r => r.Rating)
                                                 .DefaultIfEmpty()
                                                 .Average()
                 })
@@ -105,7 +100,7 @@ namespace BornToMove.DAL
                                                 .Average()
                 })
                 .ToList();
-            
+
 
             return moves;
         }

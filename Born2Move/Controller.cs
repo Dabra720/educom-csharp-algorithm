@@ -1,5 +1,6 @@
 ﻿using BornToMove.Business;
 using BornToMove.DAL;
+using BornToMove.DAL.Contracts;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace BornToMove
     internal class Controller
     {
         //private Crud crud;
-        private MoveCrud moveCrud= new MoveCrud();
+        private IMoveCrud moveCrud = new MoveCrud();
         private BuMove buMove;
         private View view;
 

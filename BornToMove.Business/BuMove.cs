@@ -1,14 +1,15 @@
 ﻿using BornToMove.DAL;
+using BornToMove.DAL.Contracts;
 using Organizer;
 
 namespace BornToMove.Business
 {
     public class BuMove
     {
-        private readonly MoveCrud crud;
+        private readonly IMoveCrud crud;
         private RotateSort<MoveWithRating> sorter;
 
-        public BuMove(MoveCrud moveCrud)
+        public BuMove(IMoveCrud moveCrud)
         {
             crud = moveCrud;
             sorter = new RotateSort<MoveWithRating>();
